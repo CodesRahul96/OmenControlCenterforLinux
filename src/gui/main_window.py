@@ -2014,7 +2014,7 @@ class HPManagerWindow(Adw.ApplicationWindow if HAS_ADW else Gtk.ApplicationWindo
         bar = Gtk.Box(spacing=6)
         bar.add_css_class("floating-topbar")
 
-        left = Gtk.Box(spacing=6, halign=Gtk.Align.START, valign=Gtk.Align.CENTER)
+        left = Gtk.Box(spacing=6, valign=Gtk.Align.CENTER, hexpand=True)
 
         self.menu_back_btn = Gtk.Button()
         self.menu_back_btn.add_css_class("menu-back-btn")
@@ -2041,7 +2041,7 @@ class HPManagerWindow(Adw.ApplicationWindow if HAS_ADW else Gtk.ApplicationWindo
         self.floating_page_title.add_css_class("floating-page-title")
         left.append(self.floating_page_title)
 
-        controls = Gtk.Box(spacing=6)
+        controls = Gtk.Box(spacing=6, halign=Gtk.Align.END, valign=Gtk.Align.CENTER)
         controls.append(self._make_window_control_button(
             "window-minimize-symbolic", self._on_window_minimize
         ))
