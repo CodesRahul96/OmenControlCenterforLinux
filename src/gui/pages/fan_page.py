@@ -1262,6 +1262,12 @@ class FanPage(Gtk.Box):
         self._pp_conflict_lbl.set_visible(False)
         content.append(self._pp_conflict_lbl)
 
+        # App Profile lock banner
+        self._app_profile_banner = Gtk.Label(label="", use_markup=True, xalign=0.5)
+        self._app_profile_banner.add_css_class("warning-label")
+        self._app_profile_banner.set_visible(False)
+        content.append(self._app_profile_banner)
+
         # ─── 3. OVAL DASHBOARD GRIDS ───
         self.dashboard_grid = Gtk.Grid(column_spacing=18, row_spacing=18)
         self.dashboard_grid.set_column_homogeneous(True)
@@ -2005,13 +2011,32 @@ class FanPage(Gtk.Box):
 
         # TLP / Auto-cpufreq conflicts
         conflict = data.get("power_conflict")
+        active_app = power_profile.get("active_app")
+        app_profiles_enabled = power_profile.get("app_profiles_enabled", False)
+        app_profile_active = bool(active_app and app_profiles_enabled)
+
+        if app_profile_active:
+            # App profile is overriding — lock profile selector and show banner
+            self.selector_capsule.set_sensitive(False)
+            app_display = str(active_app)
+            banner_text = T("managed_by_app_profile").format(app=app_display)
+            self._app_profile_banner.set_label(
+                f"<span color='#57c494'>{banner_text}</span>")
+            self._app_profile_banner.set_visible(True)
+        else:
+            self._app_profile_banner.set_visible(False)
+            # Only unlock if no TLP conflict either
+            if not conflict:
+                self.selector_capsule.set_sensitive(True)
+
         if conflict:
             self.selector_capsule.set_sensitive(conflict != "tlp")
             self._pp_conflict_lbl.set_label(
                 f"<span color='#ef5b4a'>{T('power_managed_by').format(tool=conflict.upper())}</span>")
             self._pp_conflict_lbl.set_visible(True)
         else:
-            self.selector_capsule.set_sensitive(True)
+            if not app_profile_active:
+                self.selector_capsule.set_sensitive(True)
             self._pp_conflict_lbl.set_visible(False)
 
         # Fan service warning

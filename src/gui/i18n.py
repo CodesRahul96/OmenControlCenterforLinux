@@ -145,6 +145,7 @@ TRANSLATIONS = {
         "balanced_tooltip": "Güç ve tasarruf arasında denge kurar. (Optimize Güç Limitleri)",
         "performance_tooltip": "Tüm limitleri kaldırır ve en yüksek performansı almanızı sağlar.",
         "power_managed_by": "Güç modu {tool} tarafından yönetilmektedir.",
+        "managed_by_app_profile": "🎮 Profil Yönetiminde: {app} — Performans değiştirilemez.",
 
     },
     "en": {
@@ -265,6 +266,7 @@ TRANSLATIONS = {
         "balanced_tooltip": "Balance between power and efficiency.",
         "performance_tooltip": "Remove all power limits for maximum performance.",
         "power_managed_by": "Power mode is managed by {tool}.",
+        "managed_by_app_profile": "🎮 App Profile Active: {app} — Performance settings locked.",
     },
 }
 
