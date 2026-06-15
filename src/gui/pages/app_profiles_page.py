@@ -112,6 +112,11 @@ class AppProfilesPage(Gtk.Box):
         self.add_fan_dd.set_valign(Gtk.Align.CENTER)
         form_box.append(self.add_fan_dd)
         
+        self.add_theme_dd = Gtk.DropDown(model=Gtk.StringList.new([T("theme_default"), T("theme_dark"), T("theme_light")]))
+        self.add_theme_dd.set_valign(Gtk.Align.CENTER)
+        self.add_theme_dd.set_tooltip_text(T("theme_label"))
+        form_box.append(self.add_theme_dd)
+        
         add_btn = Gtk.Button(label=T("add"))
         add_btn.add_css_class("suggested-action")
         add_btn.set_valign(Gtk.Align.CENTER)
@@ -321,15 +326,20 @@ class AppProfilesPage(Gtk.Box):
                     lbl = Gtk.Label(xalign=0, hexpand=True, halign=Gtk.Align.START, css_classes=["title-4"])
                     lbl.set_markup(lbl_text)
                     
-                    # Extract fan mode
+                    # Extract fan mode and theme
                     fan_mode = val.get("fan_mode", "default") if isinstance(val, dict) else "default"
+                    theme = val.get("theme", "default") if isinstance(val, dict) else "default"
                     
                     p_text = T("saver") if profile == "power-saver" else T("balanced") if profile == "balanced" else T("performance")
+                    meta_parts = [p_text]
                     if fan_mode and fan_mode != "default":
                         fan_lbl_text = T("fan_auto") if fan_mode == "auto" else T("fan_max")
-                        lbl_settings = f"{p_text} ({fan_lbl_text})"
-                    else:
-                        lbl_settings = p_text
+                        meta_parts.append(fan_lbl_text)
+                    if theme == "dark":
+                        meta_parts.append("\U0001f319")  # 🌙
+                    elif theme == "light":
+                        meta_parts.append("\u2600\ufe0f")   # ☀️
+                    lbl_settings = " • ".join(meta_parts)
                         
                     profile_lbl = Gtk.Label(label=lbl_settings, xalign=0, halign=Gtk.Align.END, css_classes=["dim-label"])
                     
@@ -380,6 +390,10 @@ class AppProfilesPage(Gtk.Box):
         fan_map = {0: "default", 1: "auto", 2: "max"}
         fan_mode = fan_map.get(fan_idx, "default")
         
+        theme_idx = self.add_theme_dd.get_selected()
+        theme_map = {0: "default", 1: "dark", 2: "light"}
+        theme = theme_map.get(theme_idx, "default")
+        
         # Check if we have a mapped suggestion selected
         exec_name = getattr(self, "_selected_exec_name", None)
         if not exec_name:
@@ -396,7 +410,8 @@ class AppProfilesPage(Gtk.Box):
                 "profile": profile,
                 "category": category,
                 "name": display_name,
-                "fan_mode": fan_mode
+                "fan_mode": fan_mode,
+                "theme": theme,
             }
             
             self.power_service.SetAppProfiles(json.dumps(app_profiles))

@@ -298,6 +298,10 @@ class HPManagerWindow(Gtk.ApplicationWindow):
         self._nvidia_runtime_status_scanned = False
         self.performance_mode = "balanced"
         self._ui_scale_bucket = "normal"
+        # App-profile theme override tracking
+        self._app_profile_prev_active = None   # last seen active_app from daemon
+        self._app_profile_saved_theme = None   # user theme before an override
+        self._app_profile_theme_override = False  # suppress _save_config during override
         self._ui_scale_tick_id = 0
         self._ui_last_width = 0
         self._ui_last_height = 0
@@ -472,6 +476,9 @@ class HPManagerWindow(Gtk.ApplicationWindow):
         return str(val).replace('\\', '\\\\').replace('"', '\\"').replace('\n', '\\n')
 
     def _save_config(self):
+        # Do not persist theme when it was changed by an app-profile auto-override
+        if getattr(self, "_app_profile_theme_override", False):
+            return
         try:
             os.makedirs(os.path.dirname(CONFIG_FILE), exist_ok=True)
             theme     = self._toml_escape(self.app_theme)
@@ -3268,6 +3275,31 @@ class HPManagerWindow(Gtk.ApplicationWindow):
         gpui = data.get("gpu", {}) or {}
         cpu_pct = data.get("cpu_pct")
         gpu_pct = data.get("gpu_pct")
+
+        # ── App-profile theme auto-switch ─────────────────────────────────────
+        if ok and ppi:
+            active_app = ppi.get("active_app")
+            app_profiles = ppi.get("app_profiles", {}) or {}
+            if active_app != getattr(self, "_app_profile_prev_active", None):
+                self._app_profile_prev_active = active_app
+                if active_app and active_app in app_profiles:
+                    val = app_profiles[active_app]
+                    theme_override = val.get("theme", "default") if isinstance(val, dict) else "default"
+                    if theme_override in ("dark", "light"):
+                        if not getattr(self, "_app_profile_theme_override", False):
+                            # Save the user's current theme before overriding
+                            self._app_profile_saved_theme = self.app_theme
+                        self._app_profile_theme_override = True
+                        self._on_theme_change(theme_override)
+                else:
+                    # App exited — restore saved theme
+                    if getattr(self, "_app_profile_theme_override", False):
+                        saved = getattr(self, "_app_profile_saved_theme", None)
+                        self._app_profile_theme_override = False
+                        self._app_profile_saved_theme = None
+                        if saved is not None:
+                            self._on_theme_change(saved)
+        # ─────────────────────────────────────────────────────────────────────
 
         if not ok:
             for pid, refs in self._launcher_cards.items():

@@ -135,6 +135,7 @@ TRANSLATIONS = {
         "placeholder_app": "örn. android-studio",
         "game": "Oyun", "program": "Program", "other": "Diğer",
         "fan_default": "Varsayılan Fan", "fan_auto": "Otomatik Fan", "fan_max": "Maks Fan",
+        "theme_label": "Tema", "theme_default": "Tema Değişmesin", "theme_dark": "Koyu Tema", "theme_light": "Açık Tema",
         # Fan curve widget
         "temp_axis": "Sıcaklık (°C)", "fan_speed_axis": "Fan Hızı (%)",
         # Sensor categories
@@ -254,6 +255,7 @@ TRANSLATIONS = {
         "placeholder_app": "e.g. android-studio",
         "game": "Game", "program": "Program", "other": "Other",
         "fan_default": "Default Fan", "fan_auto": "Auto Fan", "fan_max": "Max Fan",
+        "theme_label": "Theme", "theme_default": "No Change", "theme_dark": "Force Dark", "theme_light": "Force Light",
         # Fan curve widget
         "temp_axis": "Temperature (°C)", "fan_speed_axis": "Fan Speed (%)",
         # Sensor categories

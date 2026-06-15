@@ -485,6 +485,9 @@ class PowerService:
                     fan_mode = val.get("fan_mode", "default")
                     if fan_mode not in ("default", "auto", "max"):
                         return "FAIL"
+                    theme = val.get("theme", "default")
+                    if theme not in ("default", "dark", "light"):
+                        return "FAIL"
             self._config.set("app_profiles", mapping)
             self._config.save()
             logger.info("App Profiles Updated: %s", mapping)
