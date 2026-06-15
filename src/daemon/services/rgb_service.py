@@ -41,6 +41,28 @@ class RGBController:
         self.last_written = [None] * 8
         self.reversed = True
         self._fds: typing.Dict[int, typing.IO] = {}
+        
+        # Test if the RGB hardware is actually present and functional.
+        # On non-RGB hardware (like Victus 15), the hp-rgb-lighting driver is loaded
+        # and creates sysfs nodes, but writing to them is ignored and reading them
+        # always returns "000000" (or fails to match the written value).
+        if self.available:
+            try:
+                # Write a test pattern to zone0
+                with open(f"{self.driver_path}/zone0", "w") as f:
+                    f.write("FF0000")
+                # Wait briefly for driver/WMI sync
+                time.sleep(0.01)
+                # Read it back
+                with open(f"{self.driver_path}/zone0", "r") as f:
+                    val = f.read().strip()
+                if val != "FF0000":
+                    logger.info("RGB: Write test failed (read back '%s' instead of 'FF0000'). Disabling RGB support.", val)
+                    self.available = False
+            except Exception as e:
+                logger.warning("RGB: Write test failed with error: %s. Disabling RGB support.", e)
+                self.available = False
+
         if self.available:
             for i in range(8):
                 try:
