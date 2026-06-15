@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=OmenCtl
+Name=OmenControlCenter
 Comment=HP dizüstü bilgisayar yönetim aracı
 Comment[en]=HP Laptop management tool
 Exec=/usr/bin/omenctl
