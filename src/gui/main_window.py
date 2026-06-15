@@ -3328,20 +3328,28 @@ class HPManagerWindow(Gtk.ApplicationWindow):
 
         light = self._launcher_cards.get("lighting")
         if light:
-            mode = str(ligi.get("mode", "unknown"))
-            mode_map = {
-                "static": T("static_eff"),
-                "breathing": T("breathing"),
-                "wave": T("wave"),
-                "cycle": T("cycle"),
-            }
-            bright = int(ligi.get("brightness", 0) or 0)
-            light["metric_main"].set_label(mode_map.get(mode, mode.capitalize()))
-            light["metric_sub"].set_label(f"{bright}%")
-            if light.get("mini_bar") is not None:
-                light["mini_bar"].set_value(max(0, min(100, bright)))
-            lighting_module_ok = os.path.exists("/sys/module/hp_rgb_lighting")
-            self._set_launcher_badge("lighting", (not ok) or (not lighting_module_ok) or (not bool(ligi)))
+            rgb_available = ligi.get("rgb_available", True)
+            if not rgb_available:
+                light["metric_main"].set_label("Desteklenmiyor" if get_lang() == "tr" else "Unsupported")
+                light["metric_sub"].set_label("Yok" if get_lang() == "tr" else "None")
+                if light.get("mini_bar") is not None:
+                    light["mini_bar"].set_value(0)
+                self._set_launcher_badge("lighting", False)
+            else:
+                mode = str(ligi.get("mode", "unknown"))
+                mode_map = {
+                    "static": T("static_eff"),
+                    "breathing": T("breathing"),
+                    "wave": T("wave"),
+                    "cycle": T("cycle"),
+                }
+                bright = int(ligi.get("brightness", 0) or 0)
+                light["metric_main"].set_label(mode_map.get(mode, mode.capitalize()))
+                light["metric_sub"].set_label(f"{bright}%")
+                if light.get("mini_bar") is not None:
+                    light["mini_bar"].set_value(max(0, min(100, bright)))
+                lighting_module_ok = os.path.exists("/sys/module/hp_rgb_lighting")
+                self._set_launcher_badge("lighting", (not ok) or (not lighting_module_ok) or (not bool(ligi)))
 
         mux = self._launcher_cards.get("mux")
         if mux:

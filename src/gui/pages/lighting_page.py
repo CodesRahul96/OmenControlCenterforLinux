@@ -82,6 +82,8 @@ class LightingPage(Gtk.Box):
 
     def _sync_state(self):
         if not self.service:
+            if not os.path.exists("/sys/module/hp_rgb_lighting"):
+                GLib.idle_add(self.view_stack.set_visible_child_name, "unsupported")
             return
         
         # Run DBus call in background to avoid freezing the UI transition
@@ -96,6 +98,13 @@ class LightingPage(Gtk.Box):
 
     def _apply_state(self, st):
         try:
+            rgb_available = st.get("rgb_available", True)
+            if not rgb_available:
+                self.view_stack.set_visible_child_name("unsupported")
+                return False
+            else:
+                self.view_stack.set_visible_child_name("supported")
+
             self.power = st.get("power", True)
             self.mode = st.get("mode", "static")
             self.speed = st.get("speed", 50)
@@ -133,6 +142,12 @@ class LightingPage(Gtk.Box):
         title.add_css_class("page-title")
         self.append(title)
 
+        self.view_stack = Gtk.Stack()
+        self.view_stack.set_transition_type(Gtk.StackTransitionType.CROSSFADE)
+        self.view_stack.set_transition_duration(150)
+        self.append(self.view_stack)
+
+        # ─── 1. Supported View ───
         scroll = Gtk.ScrolledWindow(vexpand=True)
         scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         content = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=20)
@@ -262,7 +277,38 @@ class LightingPage(Gtk.Box):
         content.append(card)
 
         scroll.set_child(content)
-        self.append(scroll)
+        self.view_stack.add_named(scroll, "supported")
+
+        # ─── 2. Unsupported View ───
+        unsupported_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=24, valign=Gtk.Align.CENTER, halign=Gtk.Align.CENTER)
+        unsupported_box.set_vexpand(True)
+        unsupported_box.set_hexpand(True)
+        unsupported_box.add_css_class("card")
+        unsupported_box.set_margin_start(40)
+        unsupported_box.set_margin_end(40)
+        unsupported_box.set_margin_top(40)
+        unsupported_box.set_margin_bottom(40)
+
+        # Large icon
+        icon = Gtk.Image.new_from_icon_name("lightbulb-symbolic")
+        icon.set_pixel_size(64)
+        icon.add_css_class("dim-label")
+        unsupported_box.append(icon)
+
+        # Title
+        unsupported_title = Gtk.Label(label=T("rgb_not_supported"), css_classes=["title-2"])
+        unsupported_box.append(unsupported_title)
+
+        # Description
+        unsupported_desc = Gtk.Label(label=T("rgb_not_supported_desc"), css_classes=["dim-label"])
+        unsupported_desc.set_wrap(True)
+        unsupported_desc.set_max_width_chars(50)
+        unsupported_desc.set_justify(Gtk.Justification.CENTER)
+        unsupported_box.append(unsupported_desc)
+
+        self.view_stack.add_named(unsupported_box, "unsupported")
+
+        self.view_stack.set_visible_child_name("supported")
         self.set_ui_scale("normal")
 
     def set_ui_scale(self, bucket, _width=0, _height=0):

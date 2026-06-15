@@ -395,7 +395,9 @@ class RGBService:
         return "OK"
 
     def GetState(self):
-        return json.dumps(self._config.snapshot())
+        data = self._config.snapshot()
+        data["rgb_available"] = self._rgb.is_available()
+        return json.dumps(data)
 
     def SetWinLock(self, locked):
         logger.info("SetWinLock: %s", "LOCKED" if locked else "UNLOCKED")
