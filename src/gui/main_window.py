@@ -267,7 +267,7 @@ class FixedMenuIcon(Gtk.DrawingArea):
             return
 
 
-class HPManagerWindow(Adw.ApplicationWindow if HAS_ADW else Gtk.ApplicationWindow):
+class HPManagerWindow(Gtk.ApplicationWindow):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.set_title("OmenControlCenter")
@@ -506,13 +506,14 @@ class HPManagerWindow(Adw.ApplicationWindow if HAS_ADW else Gtk.ApplicationWindo
                 sm.set_color_scheme(Adw.ColorScheme.FORCE_LIGHT)
             else:
                 sm.set_color_scheme(Adw.ColorScheme.DEFAULT)
-            return
 
         settings = Gtk.Settings.get_default()
         if settings is not None:
             if self.app_theme == "dark":
                 settings.set_property("gtk-application-prefer-dark-theme", True)
             elif self.app_theme == "light":
+                settings.set_property("gtk-application-prefer-dark-theme", False)
+            else:
                 settings.set_property("gtk-application-prefer-dark-theme", False)
 
     def _get_system_accent(self):
@@ -2232,10 +2233,7 @@ class HPManagerWindow(Adw.ApplicationWindow if HAS_ADW else Gtk.ApplicationWindo
         root.add_css_class("app-shell")
         root.set_overflow(Gtk.Overflow.HIDDEN)
         self._root_shell = root
-        if HAS_ADW:
-            self.set_content(root)
-        else:
-            self.set_child(root)
+        self.set_child(root)
 
         self.stack = Gtk.Stack()
         self.stack.set_transition_type(Gtk.StackTransitionType.CROSSFADE)
