@@ -20,7 +20,7 @@ def T(k):
 
 
 APP_VERSION = "1.5.3"
-GITHUB_REPO = "yunusemreyl/OmenCtl"
+GITHUB_REPO = "CodesRahul96/OmenControlCenterforLinux"
 GITHUB_API_URL = f"https://api.github.com/repos/{GITHUB_REPO}/releases/latest"
 GITHUB_RELEASES_URL = f"https://github.com/{GITHUB_REPO}/releases/latest"
 
@@ -474,7 +474,7 @@ class SettingsPage(Gtk.Box):
         # Version info left side (Vertically centered)
         ver_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=1, hexpand=True, valign=Gtk.Align.CENTER)
         ver_lbl = Gtk.Label(
-            label=f"🚀  OmenCtl v{APP_VERSION}", xalign=0, halign=Gtk.Align.START)
+            label=f"🚀  OmenControlCenter v{APP_VERSION}", xalign=0, halign=Gtk.Align.START)
         ver_lbl.add_css_class("update-ver-label")
         ver_box.append(ver_lbl)
 
@@ -669,7 +669,7 @@ class SettingsPage(Gtk.Box):
         name_row = Gtk.Box(spacing=8, valign=Gtk.Align.CENTER, halign=Gtk.Align.START)
         name_row.append(app_logo)
         
-        name_lbl = Gtk.Label(label="OmenCtl", xalign=0, halign=Gtk.Align.START)
+        name_lbl = Gtk.Label(label="OmenControlCenter", xalign=0, halign=Gtk.Align.START)
         name_lbl.add_css_class("about-app-name")
         name_row.append(name_lbl)
 
@@ -679,7 +679,7 @@ class SettingsPage(Gtk.Box):
         about_text.append(name_row)
 
         dev_lbl = Gtk.Label(
-            label=f"{T('developer')}: <a href='https://github.com/yunusemreyl'>yunusemreyl</a>",
+            label=f"{T('developer')}: <a href='https://github.com/CodesRahul96'>CodesRahul96</a> & <a href='https://github.com/yunusemreyl'>yunusemreyl</a>",
             use_markup=True, xalign=0, halign=Gtk.Align.START)
         dev_lbl.add_css_class("about-dev-link")
         about_text.append(dev_lbl)

@@ -50,10 +50,10 @@
 ---
 
 > [!NOTE]
-> ### 🌟 Welcome to OmenCtl 
-> **OmenCtl** (formerly *OMEN Command Center for Linux*) is a completely re-engineered, native control suite built to bridge the gap between official Windows tools and Linux. By combining low-level ACPI/WMI registers with beautiful, modern GTK4 interface designs, OmenCtl gives you full dominion over your laptop.
+> ### 🌟 Welcome to OmenControlCenter 
+> **OmenControlCenter** (formerly *OMEN Command Center for Linux*) is a completely re-engineered, native control suite built to bridge the gap between official Windows tools and Linux. By combining low-level ACPI/WMI registers with beautiful, modern GTK4 interface designs, OmenControlCenter gives you full dominion over your laptop.
 > 
-> **Here is what OmenCtl accomplishes for your laptop:**
+> **Here is what OmenControlCenter accomplishes for your laptop:**
 > * **🌪️ Silent & Stable Fans:** Re-engineered with a 15-sample moving average and 4°C deadband. Fans react instantly to thermal spikes but stay calm and silent during minor temperature fluctuations. No more constant fan pulsing/revving!
 > * **⚡ Zero-Delay Power Profiles:** Instantly toggle direct hardware power profiles (Saver, Balanced, Performance) without any PolicyKit authentication popups or D-Bus lockups.
 > * **🌈 Zero-overhead Keyboard RGB:** Full hex color zoning and lighting effects utilizing a specialized animation engine that consumes exactly **0% CPU** on static states.
@@ -100,22 +100,22 @@
 
 ---
 > [!NOTE]
->### Upgrading to v1.5.3
->To upgrade your current installation, clean up legacy remnants, and load the new optimized permissions:
->```bash
->git clone https://github.com/yunusemreyl/OmenCtl.git
->cd OmenCtl
->git pull
->sudo ./setup.sh update
->```
->*(The update routine will sturdily stash your files, pull the latest repo, apply dynamic D-Bus reload policies, and cleanly restart the microservices).*
+> ### Upgrading to v1.5.3
+> To upgrade your current installation, clean up legacy remnants, and load the new optimized permissions:
+> ```bash
+> git clone https://github.com/CodesRahul96/OmenControlCenterforLinux.git
+> cd OmenControlCenterforLinux
+> git pull
+> sudo ./setup.sh update
+> ```
+> *(The update routine will sturdily stash your files, pull the latest repo, apply dynamic D-Bus reload policies, and cleanly restart the microservices).*
 ---
 ### Fresh Install
 Open your terminal and run:
 ```bash
 # Clone the repository
-git clone https://github.com/yunusemreyl/OmenCtl.git
-cd OmenCtl
+git clone https://github.com/CodesRahul96/OmenControlCenterforLinux.git
+cd OmenControlCenterforLinux
 
 # Run the unified installer (requires root)
 chmod +x setup.sh
@@ -123,9 +123,9 @@ sudo ./setup.sh install
 ```
 
 ### Uninstallation
-To completely remove OmenCtl and all its services:
+To completely remove OmenControlCenter and all its services:
 ```bash
-cd OmenCtl
+cd OmenControlCenterforLinux
 sudo ./setup.sh uninstall
 ```
 
@@ -145,7 +145,8 @@ sudo ./setup.sh uninstall
 ## 👨‍💻 Credits & Contributors
 
 ### 👑 Core Maintainer & Lead Developers
-* **[yunusemreyl](https://github.com/yunusemreyl)** - Lead Developer & Maintainer
+* **[CodesRahul96](https://github.com/CodesRahul96)** - Core Maintainer & Lead Developer
+* **[yunusemreyl](https://github.com/yunusemreyl)** - Original Lead Developer & Maintainer
 * **[tuxov](https://github.com/tuxov)** - Kernel Module & Patch Lead (Maintainer of the exceptional `hp-wmi-fan-and-backlight-control` kernel driver)
 
 ### 🛠️ Pull Request Contributors
@@ -159,7 +160,7 @@ A special thank you to our contributors who have directly submitted code patches
 | **[@yijean34-source](https://github.com/yijean34-source)** | Test script and troubleshooting documentation (`#74`) |
 
 ### 💖 Heartfelt Community Appreciation
-A massive, glowing thank you to all our amazing community members who have opened issues, reported bugs, suggested features, and tested beta updates. Your efforts make **OmenCtl** stable, reliable, and premium!
+A massive, glowing thank you to all our amazing community members who have opened issues, reported bugs, suggested features, and tested beta updates. Your efforts make **OmenControlCenter** stable, reliable, and premium!
 
 | Contributor | Contributor | Contributor | Contributor |
 | :--- | :--- | :--- | :--- |
@@ -178,6 +179,6 @@ A massive, glowing thank you to all our amazing community members who have opene
 ---
 
 ## ⚖️ Legal Disclaimer
-OmenCtl is an independent open-source project developed by **yunusemreyl** and is **NOT** officially affiliated with, authorized, or endorsed by **Hewlett-Packard (HP)**. All product names, logos, and brands are property of their respective owners.
+OmenControlCenter is developed and maintained by **CodesRahul96** & **yunusemreyl** and is **NOT** officially affiliated with, authorized, or endorsed by **Hewlett-Packard (HP)**. All product names, logos, and brands are property of their respective owners.
 
-*Developed with ❤️ by yunusemreyl & Contributors*
+*Developed with ❤️ by CodesRahul96, yunusemreyl & Contributors*

@@ -897,7 +897,7 @@ class DashboardPage(Gtk.Box):
         # Conflict check
         conflict = d.get("power_conflict")
         if conflict:
-            self._conflict_lbl.set_markup(f"⚠️ <b>Conflict Detected:</b> {conflict}.service is running, which may override OmenCtl.")
+            self._conflict_lbl.set_markup(f"⚠️ <b>Conflict Detected:</b> {conflict}.service is running, which may override OmenControlCenter.")
             self._conflict_lbl.set_visible(True)
         else:
             self._conflict_lbl.set_visible(False)

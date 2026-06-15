@@ -125,6 +125,14 @@ TRANSLATIONS = {
 
         # Temperature unit
         "temp_unit": "Sıcaklık Birimi", "celsius": "Celsius (°C)", "fahrenheit": "Fahrenheit (°F)",
+        # Custom App Profiles
+        "app_profiles": "Uygulama Profilleri",
+        "app_profiles_desc": "Belirli uygulamalar çalışırken güç profilini otomatik olarak değiştirin.",
+        "app_name": "Uygulama İşlem Adı",
+        "add": "Ekle",
+        "placeholder_app": "örn. android-studio",
+        "game": "Oyun", "program": "Program", "other": "Diğer",
+        "fan_default": "Varsayılan Fan", "fan_auto": "Otomatik Fan", "fan_max": "Maks Fan",
         # Fan curve widget
         "temp_axis": "Sıcaklık (°C)", "fan_speed_axis": "Fan Hızı (%)",
         # Sensor categories
@@ -234,6 +242,14 @@ TRANSLATIONS = {
 
         # Temperature unit
         "temp_unit": "Temperature Unit", "celsius": "Celsius (°C)", "fahrenheit": "Fahrenheit (°F)",
+        # Custom App Profiles
+        "app_profiles": "App Profiles",
+        "app_profiles_desc": "Automatically switch power profiles when specific applications are running.",
+        "app_name": "App Process Name",
+        "add": "Add",
+        "placeholder_app": "e.g. android-studio",
+        "game": "Game", "program": "Program", "other": "Other",
+        "fan_default": "Default Fan", "fan_auto": "Auto Fan", "fan_max": "Max Fan",
         # Fan curve widget
         "temp_axis": "Temperature (°C)", "fan_speed_axis": "Fan Speed (%)",
         # Sensor categories

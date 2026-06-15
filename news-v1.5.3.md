@@ -1,4 +1,4 @@
-# OmenCtl v1.5.3 Update Log
+# OmenControlCenter v1.5.3 Update Log
 
 A comprehensive roadmap and set of fixes were implemented for the upcoming v1.5.3 release to address the issues reported:
 

@@ -1,6 +1,6 @@
-# OmenCtl - Developer Documentation
+# OmenControlCenter - Developer Documentation
 
-Welcome to the official developer documentation for OmenCtl. This project is designed to bring native, hardware-level control for HP OMEN and Victus laptops to Linux, prioritizing a zero-trust security architecture, modularity, and high performance.
+Welcome to the official developer documentation for OmenControlCenter. This project is designed to bring native, hardware-level control for HP OMEN and Victus laptops to Linux, prioritizing a zero-trust security architecture, modularity, and high performance.
 
 ## Table of Contents
 

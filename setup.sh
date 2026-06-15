@@ -5,7 +5,7 @@
 set -euo pipefail
 
 # --- CONFIGURATION ---
-APP_NAME="OmenCtl"
+APP_NAME="OmenControlCenter"
 INSTALL_DIR="/usr/libexec/hp-manager"
 DATA_DIR="/usr/share/hp-manager"
 BIN_LINK="/usr/bin/hp-manager"
@@ -489,7 +489,7 @@ _setup_omen_key_gnome() {
     fi
 
     runuser -u "$user" -- gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "${new_val}" 2>/dev/null
-    runuser -u "$user" -- gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:${omen_path} name 'OmenCtl' 2>/dev/null
+    runuser -u "$user" -- gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:${omen_path} name 'OmenControlCenter' 2>/dev/null
     runuser -u "$user" -- gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:${omen_path} command 'omenctl' 2>/dev/null
     runuser -u "$user" -- gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:${omen_path} binding 'Launch2' 2>/dev/null \
         && log "Omen Key shortcut set for GNOME (Launch2 → omenctl)" \
@@ -519,8 +519,8 @@ _setup_omen_key_kde() {
     fi
 
     if [ -n "$kwrite" ]; then
-        runuser -u "$user" -- ${kwrite} --file kglobalshortcutsrc --group 'omen-command-center.desktop' --key '_launch' 'Launch2,none,OmenCtl' 2>/dev/null || true
-        runuser -u "$user" -- ${kwrite} --file kglobalshortcutsrc --group 'omen-command-center.desktop' --key '_k_friendly_name' 'OmenCtl' 2>/dev/null || true
+        runuser -u "$user" -- ${kwrite} --file kglobalshortcutsrc --group 'omen-command-center.desktop' --key '_launch' 'Launch2,none,OmenControlCenter' 2>/dev/null || true
+        runuser -u "$user" -- ${kwrite} --file kglobalshortcutsrc --group 'omen-command-center.desktop' --key '_k_friendly_name' 'OmenControlCenter' 2>/dev/null || true
         if command -v qdbus6 &>/dev/null; then
             runuser -u "$user" -- qdbus6 org.kde.kglobalaccel /kglobalaccel org.kde.KGlobalAccel.reloadConfig 2>/dev/null || true
         elif command -v qdbus &>/dev/null; then
@@ -533,8 +533,8 @@ _setup_omen_key_kde() {
         cat >> "$rc_file" <<'KDE_SHORTCUT'
 
 [omen-command-center.desktop]
-_launch=Launch2,none,OmenCtl
-_k_friendly_name=OmenCtl
+_launch=Launch2,none,OmenControlCenter
+_k_friendly_name=OmenControlCenter
 KDE_SHORTCUT
         chown "$user":"$user" "$rc_file" 2>/dev/null || true
         log "Omen Key shortcut written to kglobalshortcutsrc"
@@ -545,7 +545,7 @@ KDE_SHORTCUT
     runuser -u "$user" -- mkdir -p "${desktop_dir}" 2>/dev/null || true
     cat > "${desktop_dir}/omen-command-center.desktop" <<DESKTOP
 [Desktop Entry]
-Name=OmenCtl
+Name=OmenControlCenter
 Exec=omenctl
 Icon=omenctl
 Type=Application
@@ -567,7 +567,7 @@ _setup_omen_key_cinnamon() {
     local base_path="/org/cinnamon/desktop/keybindings/custom-keybindings"
     local omen_path="${base_path}/omen-key/"
 
-    runuser -u "$user" -- dconf write ${omen_path}name "'OmenCtl'" 2>/dev/null || true
+    runuser -u "$user" -- dconf write ${omen_path}name "'OmenControlCenter'" 2>/dev/null || true
     runuser -u "$user" -- dconf write ${omen_path}command "'omenctl'" 2>/dev/null || true
     runuser -u "$user" -- dconf write ${omen_path}binding "['Launch2']" 2>/dev/null \
         && log "Omen Key shortcut set for Cinnamon (Launch2 → omenctl)" \
@@ -595,7 +595,7 @@ _setup_omen_key_fallback() {
     # Append binding
     cat >> "$xbindkeys_conf" <<'XBIND'
 
-# OmenCtl key (auto-generated)
+# OmenControlCenter key (auto-generated)
 "omenctl"
     XF86Launch2
 XBIND
