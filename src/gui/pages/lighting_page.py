@@ -115,7 +115,7 @@ class LightingPage(Gtk.Box):
             self.color_separator.set_visible(rgb_supported)
             self.color_box.set_visible(rgb_supported)
             self.effects_separator.set_visible(rgb_supported)
-            self.effects_grid.set_visible(rgb_supported)
+            self._effects_grid.set_visible(rgb_supported)
             self.status_box.set_visible(not rgb_supported)
 
             self.power = st.get("power", True)

@@ -267,7 +267,7 @@ class FixedMenuIcon(Gtk.DrawingArea):
             return
 
 
-class HPManagerWindow(Gtk.ApplicationWindow):
+class HPManagerWindow(Adw.ApplicationWindow if HAS_ADW else Gtk.ApplicationWindow):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.set_title("OmenControlCenter")
@@ -2232,7 +2232,10 @@ class HPManagerWindow(Gtk.ApplicationWindow):
         root.add_css_class("app-shell")
         root.set_overflow(Gtk.Overflow.HIDDEN)
         self._root_shell = root
-        self.set_child(root)
+        if HAS_ADW:
+            self.set_content(root)
+        else:
+            self.set_child(root)
 
         self.stack = Gtk.Stack()
         self.stack.set_transition_type(Gtk.StackTransitionType.CROSSFADE)
