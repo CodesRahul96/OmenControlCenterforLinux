@@ -1405,10 +1405,10 @@ class FanPage(Gtk.Box):
             "ram": "Bellek" if lang_is_tr else "Memory",
         }
         icons = {
-            "cpu": "processor-symbolic",
+            "cpu": "cpu-symbolic",
             "disk": "drive-harddisk-symbolic",
             "gpu": "video-display-symbolic",
-            "ram": "media-memory-symbolic",
+            "ram": "ram-symbolic",
         }
 
         for key in ("cpu", "gpu", "ram", "disk"):

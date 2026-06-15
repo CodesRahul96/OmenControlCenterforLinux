@@ -344,7 +344,7 @@ class LightingPage(Gtk.Box):
         unsupported_box.set_margin_bottom(40)
 
         # Large icon
-        icon = Gtk.Image.new_from_icon_name("lightbulb-symbolic")
+        icon = Gtk.Image.new_from_icon_name("keyboard-brightness-symbolic")
         icon.set_pixel_size(64)
         icon.add_css_class("dim-label")
         unsupported_box.append(icon)

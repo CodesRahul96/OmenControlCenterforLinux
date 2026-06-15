@@ -1015,9 +1015,17 @@ class HPManagerWindow(Gtk.ApplicationWindow):
             font-weight: 520;
             transition: color 220ms ease;
         }}
-        entry {{
+        entry, entry > text, entry text {{
+            background-color: {input_bg};
+            border: 1px solid {card_border};
+            border-radius: 10px;
+            padding: 8px 12px;
             color: {fg};
-            transition: color 220ms ease;
+            transition: background-color 220ms ease, color 220ms ease, border-color 220ms ease;
+        }}
+        entry:focus, entry > text:focus, entry text:focus {{
+            border-color: {accent};
+            box-shadow: 0 0 0 2px alpha({accent}, 0.25);
         }}
         image {{
             color: {fg_dim};
@@ -2093,7 +2101,7 @@ class HPManagerWindow(Gtk.ApplicationWindow):
 
         nav_items = [
             ("fan",          self.page_titles["fan"],          "weather-tornado-symbolic"),
-            ("lighting",     self.page_titles["lighting"],     "lightbulb-symbolic"),
+            ("lighting",     self.page_titles["lighting"],     "keyboard-brightness-symbolic"),
             ("app_profiles", self.page_titles["app_profiles"], "application-x-executable-symbolic"),
             ("mux",          "MUX",                            "video-display-symbolic"),
         ]
@@ -2353,10 +2361,10 @@ class HPManagerWindow(Gtk.ApplicationWindow):
             "ram": "RAM",
         }
         icons = {
-            "cpu": "processor-symbolic",
+            "cpu": "cpu-symbolic",
             "disk": "drive-harddisk-symbolic",
             "gpu": "video-display-symbolic",
-            "ram": "media-memory-symbolic",
+            "ram": "ram-symbolic",
         }
 
         spec_row = Gtk.Box(spacing=8, homogeneous=True)
