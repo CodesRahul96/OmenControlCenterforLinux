@@ -267,13 +267,14 @@ class FixedMenuIcon(Gtk.DrawingArea):
             return
 
 
-class HPManagerWindow(Gtk.ApplicationWindow):
+class HPManagerWindow(Adw.ApplicationWindow if HAS_ADW else Gtk.ApplicationWindow):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.set_title("OmenControlCenter")
         self.set_default_size(1100, 750)
         self.set_decorated(True)
         self.set_resizable(True)
+
 
         # Register local icon directory with the theme
         display = Gdk.Display.get_default()
@@ -590,28 +591,33 @@ class HPManagerWindow(Gtk.ApplicationWindow):
             accent_glow         = f"rgba({ar}, {ag}, {ab}, 0.16)" # Interactive glow
             accent_border_hover = f"rgba({ar}, {ag}, {ab}, 0.48)"
             accent_dark         = self._darken(accent, 60)
-            bg             = "#07080c"                         # Deep Obsidian Black
-            sidebar_bg     = "#0a0b12"                         # Deep sidebar base
-            sidebar_bg2    = "#10111a"                         # Sidebar gradient end
-            card_bg        = "rgba(20, 18, 28, 0.72)"         # Translucent Amethyst Glass
-            card_border    = "rgba(255, 255, 255, 0.07)"       # Frosted border
-            sep_color      = "rgba(168, 85, 247, 0.12)"        # Purple-tinted separator
+            bg             = "#0e1118"                         # Sleek Charcoal/Slate Blue
+            sidebar_bg     = "#151b26"                         # Solid sidebar base
+            sidebar_bg2    = "#1c2331"                         # Sidebar gradient end
+            card_bg        = "#1b2230"                         # Solid card background for excellent contrast
+            card_border    = "rgba(255, 255, 255, 0.08)"       # Frosted border
+            sep_color      = "rgba(255, 255, 255, 0.08)"       # Separator
             fg             = "#ffffff"
-            fg_dim         = "#cbd5e1"
-            fg_very_dim    = "#94a3b8"
-            input_bg       = "rgba(255, 255, 255, 0.08)"
+            fg_dim         = "#e2e8f0"                         # Lighter and higher contrast
+            fg_very_dim    = "#a8b2c1"                         # Lighter than 94a3b8
+            input_bg       = "#242e42"
             clean_ram_color = "inherit"
             launcher_title_color = "#ffffff"
-            launcher_subtitle_color = "#94a3b8"
+            launcher_subtitle_color = "#e2e8f0"
             launcher_metric_main_color = "#f8fafc"
-            launcher_metric_sub_color = "#cbd5e1"
-            launcher_temp_warm_color = "#e2e8f0"
-            launcher_mode_badge_color = "rgba(168, 85, 247, 0.15)"
-            launcher_mode_badge_muted_color = "rgba(255, 255, 255, 0.06)"
-            launcher_dimmed_opacity = 0.55
-            topbar_bg      = "rgba(10, 11, 15, 0.85)"
+            launcher_metric_sub_color = "#e2e8f0"
+            launcher_temp_warm_color = "#f1f5f9"
+            launcher_mode_badge_color = "rgba(168, 85, 247, 0.20)"
+            launcher_mode_badge_muted_color = "rgba(255, 255, 255, 0.08)"
+            launcher_dimmed_opacity = 0.65
+            topbar_bg      = "#151b26"
             topbar_border  = "rgba(255, 255, 255, 0.08)"
-            topbar_shadow  = "rgba(0,0,0,0.65)"
+            topbar_shadow  = "rgba(0,0,0,0.4)"
+            entry_bg       = "#242e42"
+            entry_fg       = "#ffffff"
+            entry_border   = "rgba(255, 255, 255, 0.15)"
+            hover_bg       = "rgba(255, 255, 255, 0.06)"
+            hover_border   = "rgba(255, 255, 255, 0.08)"
         else:
             bg             = "#f3f4f6"                         # Minimalist Porcelain
             sidebar_bg     = "#f8f9fb"                         # Light sidebar base
@@ -635,6 +641,11 @@ class HPManagerWindow(Gtk.ApplicationWindow):
             topbar_bg      = "rgba(255, 255, 255, 0.90)"
             topbar_border  = "rgba(0, 0, 0, 0.06)"
             topbar_shadow  = "rgba(0, 0, 0, 0.08)"
+            entry_bg       = "#ffffff"
+            entry_fg       = "#0f172a"
+            entry_border   = "rgba(0, 0, 0, 0.15)"
+            hover_bg       = "rgba(0, 0, 0, 0.05)"
+            hover_border   = "rgba(0, 0, 0, 0.08)"
             
             # Recalculate accent for light mode to maintain contrast
             mode_accent_map_light = {
@@ -1016,17 +1027,20 @@ class HPManagerWindow(Gtk.ApplicationWindow):
             font-weight: 520;
             transition: color 220ms ease;
         }}
-        entry, entry > text, entry text {{
-            background-color: {input_bg};
-            border: 1px solid {card_border};
+        entry, entry > text, entry text, entry > text > block, entry > textview, entry > textview > text {{
+            background-color: {entry_bg} !important;
+            border: 1px solid {entry_border} !important;
             border-radius: 10px;
             padding: 8px 12px;
-            color: {fg};
+            color: {entry_fg} !important;
             transition: background-color 220ms ease, color 220ms ease, border-color 220ms ease;
         }}
         entry:focus, entry > text:focus, entry text:focus {{
-            border-color: {accent};
-            box-shadow: 0 0 0 2px alpha({accent}, 0.25);
+            border-color: {accent} !important;
+            box-shadow: 0 0 0 2px alpha({accent}, 0.25) !important;
+        }}
+        entry > text > placeholder, entry placeholder {{
+            color: {fg_very_dim} !important;
         }}
         image {{
             color: {fg_dim};
@@ -1149,8 +1163,8 @@ class HPManagerWindow(Gtk.ApplicationWindow):
             min-height: 0;
         }}
         .nav-item:hover {{
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(255, 255, 255, 0.06);
+            background: {hover_bg};
+            border-color: {hover_border};
         }}
         .nav-item.active {{
             background: linear-gradient(135deg, rgba({ar}, {ag}, {ab}, 0.14), rgba({ar}, {ag}, {ab}, 0.06));
@@ -2102,7 +2116,7 @@ class HPManagerWindow(Gtk.ApplicationWindow):
 
         nav_items = [
             ("fan",          self.page_titles["fan"],          "weather-tornado-symbolic"),
-            ("lighting",     self.page_titles["lighting"],     "keyboard-brightness-symbolic"),
+            ("lighting",     self.page_titles["lighting"],     "input-keyboard-symbolic"),
             ("app_profiles", self.page_titles["app_profiles"], "application-x-executable-symbolic"),
             ("mux",          "MUX",                            "video-display-symbolic"),
         ]
@@ -2232,8 +2246,17 @@ class HPManagerWindow(Gtk.ApplicationWindow):
         root = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
         root.add_css_class("app-shell")
         root.set_overflow(Gtk.Overflow.HIDDEN)
-        self._root_shell = root
-        self.set_child(root)
+        if HAS_ADW:
+            self.set_content(root)
+        else:
+            self.set_child(root)
+
+        # Build and set custom titlebar (topbar)
+        self.topbar = self._build_floating_bar()
+        if HAS_ADW:
+            root.append(self.topbar)
+        else:
+            self.set_titlebar(self.topbar)
 
         self.stack = Gtk.Stack()
         self.stack.set_transition_type(Gtk.StackTransitionType.CROSSFADE)

@@ -55,6 +55,10 @@ TRANSLATIONS = {
         "rgb_not_supported_desc": "Bu cihaz RGB klavye aydınlatmasını desteklememektedir. Tek renkli klavye aydınlatması donanım tarafından kontrol edilir (örn. Fn + Boşluk veya F4 kısayolu).",
         "backlight_active": "Klavye Işığı Açık",
         "backlight_off": "Klavye Işığı Kapalı",
+        "backlight_note": "Not: Eğer yazılımsal anahtar çalışmazsa, lütfen fiziksel [Fn + F4] tuş kombinasyonunu kullanın.",
+        "theme_default": "Tema Değişmesin",
+        "theme_dark": "Koyu Tema",
+        "theme_light": "Açık Tema",
         # Keyboard page
         "keyboard_shortcuts": "Kısayollar", "special_keys": "ÖZEL TUŞLAR",
         "omen_key": "Omen Tuşu", "victus_key": "Omen Tuşu",
@@ -176,6 +180,10 @@ TRANSLATIONS = {
         "rgb_not_supported_desc": "This device does not support RGB keyboard backlighting. Single-color backlighting is managed by the hardware directly (e.g. via Fn + Space or F4 shortcut).",
         "backlight_active": "Keyboard Backlight Active",
         "backlight_off": "Keyboard Backlight Off",
+        "backlight_note": "Note: If the software switch has no effect, please use the physical [Fn + F4] key combination.",
+        "theme_default": "No Change",
+        "theme_dark": "Force Dark",
+        "theme_light": "Force Light",
         # Keyboard page
         "keyboard_shortcuts": "Shortcuts", "special_keys": "SPECIAL KEYS",
         "omen_key": "Omen Key", "victus_key": "Omen Key",

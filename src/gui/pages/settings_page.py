@@ -679,7 +679,7 @@ class SettingsPage(Gtk.Box):
         about_text.append(name_row)
 
         dev_lbl = Gtk.Label(
-            label=f"{T('developer')}: <a href='https://github.com/CodesRahul96'>CodesRahul96</a> & <a href='https://github.com/yunusemreyl'>yunusemreyl</a>",
+            label=f"{T('developer')}: <a href='https://github.com/CodesRahul96'>CodesRahul96</a> &amp; <a href='https://github.com/yunusemreyl'>yunusemreyl</a>",
             use_markup=True, xalign=0, halign=Gtk.Align.START)
         dev_lbl.add_css_class("about-dev-link")
         about_text.append(dev_lbl)

@@ -1405,10 +1405,10 @@ class FanPage(Gtk.Box):
             "ram": "Bellek" if lang_is_tr else "Memory",
         }
         icons = {
-            "cpu": "cpu-symbolic",
+            "cpu": "processor-symbolic",
             "disk": "drive-harddisk-symbolic",
             "gpu": "video-display-symbolic",
-            "ram": "ram-symbolic",
+            "ram": "memory-symbolic",
         }
 
         for key in ("cpu", "gpu", "ram", "disk"):
@@ -2018,6 +2018,10 @@ class FanPage(Gtk.Box):
         if app_profile_active:
             # App profile is overriding — lock profile selector and show banner
             self.selector_capsule.set_sensitive(False)
+            if hasattr(self, "fan_control_capsule") and self.fan_control_capsule is not None:
+                self.fan_control_capsule.set_sensitive(False)
+            if hasattr(self, "fan_curve") and self.fan_curve is not None:
+                self.fan_curve.set_interactive(False)
             app_display = str(active_app)
             banner_text = T("managed_by_app_profile").format(app=app_display)
             self._app_profile_banner.set_label(
@@ -2028,6 +2032,10 @@ class FanPage(Gtk.Box):
             # Only unlock if no TLP conflict either
             if not conflict:
                 self.selector_capsule.set_sensitive(True)
+                if hasattr(self, "fan_control_capsule") and self.fan_control_capsule is not None:
+                    self.fan_control_capsule.set_sensitive(True)
+                if hasattr(self, "fan_curve") and self.fan_curve is not None and getattr(self, "fan_curve_editor_open", False):
+                    self.fan_curve.set_interactive(True)
 
         if conflict:
             self.selector_capsule.set_sensitive(conflict != "tlp")
@@ -2037,6 +2045,10 @@ class FanPage(Gtk.Box):
         else:
             if not app_profile_active:
                 self.selector_capsule.set_sensitive(True)
+                if hasattr(self, "fan_control_capsule") and self.fan_control_capsule is not None:
+                    self.fan_control_capsule.set_sensitive(True)
+                if hasattr(self, "fan_curve") and self.fan_curve is not None and getattr(self, "fan_curve_editor_open", False):
+                    self.fan_curve.set_interactive(True)
             self._pp_conflict_lbl.set_visible(False)
 
         # Fan service warning

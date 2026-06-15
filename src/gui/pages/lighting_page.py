@@ -129,6 +129,7 @@ class LightingPage(Gtk.Box):
             self.speed_scale.set_value(self.speed)
 
             if not rgb_supported:
+                self.status_note.set_label(T("backlight_note"))
                 if self.power:
                     self.status_lbl.set_label(T("backlight_active"))
                     self.status_icon.set_opacity(1.0)
@@ -217,6 +218,12 @@ class LightingPage(Gtk.Box):
         
         self.status_lbl = Gtk.Label(label="", css_classes=["title-4"])
         status_box.append(self.status_lbl)
+        
+        self.status_note = Gtk.Label(label="", css_classes=["dim-label"])
+        self.status_note.set_wrap(True)
+        self.status_note.set_max_width_chars(50)
+        self.status_note.set_justify(Gtk.Justification.CENTER)
+        status_box.append(self.status_note)
         
         self.status_box = status_box
         content.append(status_box)
@@ -344,7 +351,7 @@ class LightingPage(Gtk.Box):
         unsupported_box.set_margin_bottom(40)
 
         # Large icon
-        icon = Gtk.Image.new_from_icon_name("keyboard-brightness-symbolic")
+        icon = Gtk.Image.new_from_icon_name("input-keyboard-symbolic")
         icon.set_pixel_size(64)
         icon.add_css_class("dim-label")
         unsupported_box.append(icon)
