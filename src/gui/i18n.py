@@ -53,6 +53,8 @@ TRANSLATIONS = {
         "win_lock": "Süper Tuş Kilidi",
         "rgb_not_supported": "RGB Aydınlatma Desteklenmiyor",
         "rgb_not_supported_desc": "Bu cihaz RGB klavye aydınlatmasını desteklememektedir. Tek renkli klavye aydınlatması donanım tarafından kontrol edilir (örn. Fn + Boşluk veya F4 kısayolu).",
+        "backlight_active": "Klavye Işığı Açık",
+        "backlight_off": "Klavye Işığı Kapalı",
         # Keyboard page
         "keyboard_shortcuts": "Kısayollar", "special_keys": "ÖZEL TUŞLAR",
         "omen_key": "Omen Tuşu", "victus_key": "Omen Tuşu",
@@ -170,6 +172,8 @@ TRANSLATIONS = {
         "win_lock": "Super Key Lock",
         "rgb_not_supported": "RGB Lighting Not Supported",
         "rgb_not_supported_desc": "This device does not support RGB keyboard backlighting. Single-color backlighting is managed by the hardware directly (e.g. via Fn + Space or F4 shortcut).",
+        "backlight_active": "Keyboard Backlight Active",
+        "backlight_off": "Keyboard Backlight Off",
         # Keyboard page
         "keyboard_shortcuts": "Shortcuts", "special_keys": "SPECIAL KEYS",
         "omen_key": "Omen Key", "victus_key": "Omen Key",
