@@ -1331,7 +1331,7 @@ class FanPage(Gtk.Box):
         # 3. PPAB Toggle Row
         ppab_row = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         ppab_row.set_valign(Gtk.Align.CENTER)
-        ppab_row.append(Gtk.Image.new_from_icon_name("processor-symbolic"))
+        ppab_row.append(Gtk.Image.new_from_icon_name("cpu-symbolic"))
         ppab_row.append(Gtk.Label(label="PPAB Dynamic Boost", xalign=0, css_classes=["dim-label"]))
         ppab_row.append(Gtk.Label(hexpand=True))
         self.ppab_status_label = Gtk.Label(label=T("inactive"))
@@ -1405,7 +1405,7 @@ class FanPage(Gtk.Box):
             "ram": "Bellek" if lang_is_tr else "Memory",
         }
         icons = {
-            "cpu": "processor-symbolic",
+            "cpu": "cpu-symbolic",
             "disk": "drive-harddisk-symbolic",
             "gpu": "video-display-symbolic",
             "ram": "memory-symbolic",
