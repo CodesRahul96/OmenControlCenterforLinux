@@ -77,6 +77,16 @@
 * **PPD Polkit-Free Transitions:** Integrated the `powerprofilesctl` tool natively under our root microservice, bypassing complex D-Bus and PolicyKit `AccessDenied` write locks.
 * **cTGP & PPAB Boost rails:** Automatically locks CPU and GPU boost rails (Configurable TGP & PPAB) at the hardware level when performance mode is engaged.
 
+### 🎮 Unified Application & Game Profiles
+* **Launcher-Agnostic Profile Mapping:** Set custom power and fan profiles for specific games and apps without them replacing or overwriting each other.
+* **Auto-Detection Daemon Scanner:** The system monitor daemon dynamically scans active processes' environments (e.g., `/proc/<pid>/environ`) to detect games running via major Linux launchers and managers:
+  * 🖥️ **Steam** (native / Proton)
+  * 📦 **Flatpak**
+  * ⚡ **Snap**
+  * 🍷 **Lutris**
+  * 🛡️ **Heroic Games Launcher**
+* **Generic URI Exec Parser:** Automatically extracts unique application slugs from desktop entries and execution commands (like `steam://rungameid/`, `flatpak run`, etc.) to uniquely identify every profile without hardcoding.
+
 ### 🎨 Premium Dynamic Themes
 * **Theme-Adaptive Visuals:** High-contrast Dark and Light modes. Gauges, radial rings, and capsule buttons dynamically invert their colors, tracks, and borders to offer premium visual excellence.
 * **Performance-Reactive Accents:** The global theme accent color reacts dynamically to your active performance profile (glowing emerald for Power Saver, HP red for Balanced, and electric purple for Performance).
