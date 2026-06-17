@@ -337,9 +337,16 @@ class HPManagerWindow(Adw.ApplicationWindow if HAS_ADW else Gtk.ApplicationWindo
         if HAS_ADW:
             try:
                 sm = Adw.StyleManager.get_default()
-                sm.connect("notify::dark", lambda *_: self._update_theme_toggle_icon_state())
+                sm.connect("notify::dark", self._on_system_dark_changed)
             except Exception:
                 pass
+        else:
+            settings = Gtk.Settings.get_default()
+            if settings is not None:
+                try:
+                    settings.connect("notify::gtk-application-prefer-dark-theme", self._on_system_dark_changed)
+                except Exception:
+                    pass
 
     @staticmethod
     def _home_title():
@@ -2324,7 +2331,7 @@ class HPManagerWindow(Adw.ApplicationWindow if HAS_ADW else Gtk.ApplicationWindo
         self.stack.add_named(self.mux_page,        "mux")
         self.stack.add_named(self.settings_page,   "settings")
 
-        self.fan_page.set_dark(self.app_theme == "dark")
+        self.fan_page.set_dark(self._is_dark_mode())
         self.fan_page.set_temp_unit(self.temp_unit)
 
         self._rebuilding = True
@@ -2897,6 +2904,18 @@ class HPManagerWindow(Adw.ApplicationWindow if HAS_ADW else Gtk.ApplicationWindo
         if hasattr(self, "theme_toggle_lbl") and self.theme_toggle_lbl is not None:
             self.theme_toggle_lbl.set_label(lbl_text)
 
+    def _update_theme_colors(self):
+        is_dark = self._is_dark_mode()
+        self._apply_css()
+        self._refresh_launcher_icon_colors()
+        if hasattr(self, 'fan_page') and self.fan_page is not None:
+            self.fan_page.set_dark(is_dark)
+        self._update_theme_toggle_icon_state()
+
+    def _on_system_dark_changed(self, *args):
+        if self.app_theme == "system":
+            self._update_theme_colors()
+
     def _find_first_scrolled_window(self, widget):
         if widget is None:
             return None
@@ -3069,15 +3088,11 @@ class HPManagerWindow(Adw.ApplicationWindow if HAS_ADW else Gtk.ApplicationWindo
         self.app_theme = theme
         self._save_config()
         self._apply_theme_preference()
-        self._apply_css()
-        self._refresh_launcher_icon_colors()
+        self._update_theme_colors()
         if hasattr(self, "menu_back_btn"):
             self.menu_back_btn.set_child(self._build_menu_back_content())
-        if hasattr(self, 'fan_page'):
-            self.fan_page.set_dark(theme == "dark")
         self._update_logo()
         self._refresh_launcher_metrics()
-        self._update_theme_toggle_icon_state()
 
     def _on_lang_change(self, lang):
         if self._rebuilding:
@@ -3518,7 +3533,7 @@ class HPManagerWindow(Adw.ApplicationWindow if HAS_ADW else Gtk.ApplicationWindo
                 self.mux_page.set_service(services.get("mux"))
                 self.settings_page.set_service(services.get("mux"))
 
-            self.fan_page.set_dark(self.app_theme == "dark")
+            self.fan_page.set_dark(self._is_dark_mode())
             self.fan_page.set_temp_unit(self.temp_unit)
             if self.performance_mode == "eco":
                 self._set_performance_mode("power-saver")
