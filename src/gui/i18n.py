@@ -136,6 +136,7 @@ TRANSLATIONS = {
         # Custom App Profiles
         "app_profiles": "Uygulama Profilleri",
         "app_profiles_desc": "Belirli uygulamalar çalışırken güç profilini otomatik olarak değiştirin.",
+        "no_profiles": "Yapılandırılmış uygulama profili yok.",
         "app_name": "Uygulama İşlem Adı",
         "add": "Ekle",
         "placeholder_app": "örn. android-studio",
@@ -261,6 +262,7 @@ TRANSLATIONS = {
         # Custom App Profiles
         "app_profiles": "App Profiles",
         "app_profiles_desc": "Automatically switch power profiles when specific applications are running.",
+        "no_profiles": "No app profiles configured.",
         "app_name": "App Process Name",
         "add": "Add",
         "placeholder_app": "e.g. android-studio",
@@ -385,6 +387,7 @@ TRANSLATIONS = {
         # Custom App Profiles
         "app_profiles": "एप्लिकेशन प्रोफाइल",
         "app_profiles_desc": "विशिष्ट एप्लिकेशन चलने पर स्वचालित रूप से पावर प्रोफाइल बदलें।",
+        "no_profiles": "कोई एप्लिकेशन प्रोफाइल कॉन्फ़िगर नहीं किया गया है।",
         "app_name": "एप्लिकेशन प्रोसेस नाम",
         "add": "जोड़ें",
         "placeholder_app": "उदा. android-studio",

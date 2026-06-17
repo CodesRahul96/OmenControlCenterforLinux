@@ -291,7 +291,7 @@ class AppProfilesPage(Gtk.Box):
                 empty_row = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=12, valign=Gtk.Align.CENTER)
                 empty_row.set_margin_top(8)
                 empty_row.set_margin_bottom(8)
-                empty_lbl = Gtk.Label(label="No app profiles configured.", xalign=0, css_classes=["dim-label"])
+                empty_lbl = Gtk.Label(label=T("no_profiles"), xalign=0, css_classes=["dim-label"])
                 empty_row.append(empty_lbl)
                 self.app_profiles_list_box.append(empty_row)
             else:
@@ -323,7 +323,7 @@ class AppProfilesPage(Gtk.Box):
                     
                     lbl_text = f"{icon}  {display_name}"
                     if is_active:
-                        lbl_text += " <span foreground='#57c494' size='small' weight='bold'>[Active]</span>"
+                        lbl_text += f" <span foreground='#57c494' size='small' weight='bold'>[{T('active')}]</span>"
                         
                     lbl = Gtk.Label(xalign=0, hexpand=True, halign=Gtk.Align.START, css_classes=["title-4"])
                     lbl.set_markup(lbl_text)
