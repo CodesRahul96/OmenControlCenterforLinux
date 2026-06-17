@@ -3475,12 +3475,12 @@ class HPManagerWindow(Adw.ApplicationWindow if HAS_ADW else Gtk.ApplicationWindo
             if current_page == "dashboard":
                 current_page = "fan"
 
-            for attr in ('fan_page', 'lighting_page'):
+            for attr in ('fan_page', 'lighting_page', 'app_profiles_page'):
                 page = getattr(self, attr, None)
                 if page and hasattr(page, 'cleanup'):
                     page.cleanup()
 
-            for name in ("home", "fan", "lighting", "keyboard", "mux", "settings"):
+            for name in ("home", "fan", "lighting", "app_profiles", "keyboard", "mux", "settings"):
                 child = self.stack.get_child_by_name(name)
                 if child:
                     self.stack.remove(child)

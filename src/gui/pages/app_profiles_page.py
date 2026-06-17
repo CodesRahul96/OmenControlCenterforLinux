@@ -32,12 +32,17 @@ class AppProfilesPage(Gtk.Box):
         self._build_ui()
         
         # Periodic refresh timeout (every 2 seconds)
-        GLib.timeout_add_seconds(2, self._on_periodic_refresh)
+        self._refresh_timer_id = GLib.timeout_add_seconds(2, self._on_periodic_refresh)
 
     def _on_periodic_refresh(self):
         if self.get_mapped() and self.power_service:
             self._refresh_app_profiles()
         return True
+
+    def cleanup(self):
+        if hasattr(self, "_refresh_timer_id") and self._refresh_timer_id is not None:
+            GLib.source_remove(self._refresh_timer_id)
+            self._refresh_timer_id = None
 
     def set_power_service(self, power_service):
         self.power_service = power_service
@@ -133,7 +138,7 @@ class AppProfilesPage(Gtk.Box):
         # ── Configuration Mappings List Card ──
         self.list_card = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=15)
         self.list_card.add_css_class("card")
-        self.list_card.append(Gtk.Label(label=T("active_profile"), xalign=0, css_classes=["heading"]))
+        self.list_card.append(Gtk.Label(label=T("app_profiles"), xalign=0, css_classes=["heading"]))
         
         self.app_profiles_list_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
         self.list_card.append(self.app_profiles_list_box)
@@ -348,6 +353,7 @@ class AppProfilesPage(Gtk.Box):
                     del_btn = Gtk.Button(label="🗑️")
                     del_btn.add_css_class("update-btn")
                     del_btn.set_valign(Gtk.Align.CENTER)
+                    del_btn.set_tooltip_text(T("delete"))
                     del_btn.connect("clicked", lambda *_, a=app_name: self._delete_app_profile(a))
                     
                     row.append(lbl)
