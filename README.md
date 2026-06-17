@@ -149,6 +149,25 @@ sudo ./setup.sh uninstall
 
 ---
 
+## 💻 Hardware & Model Support
+
+OmenControlCenter detects and manages HP's proprietary WMI system interfaces, supporting a wide range of HP gaming laptops.
+
+### 🏢 Supported Product Families & Models
+* **HP OMEN 15** (e.g., `15-dhxxxx`, `15-ekxxxx`, `15-enxxxx` series)
+* **HP OMEN 16** (e.g., `16-bxxxxx`, `16-cxxxxx`, `16-kxxxxx`, `16-nxxxxx`, `16-wfxxxx`, `16-xdxxxx` series)
+* **HP OMEN 17** (e.g., `17-cbxxxx`, `17-ckxxxx`, `17-cmxxxx` series)
+* **HP OMEN Transcend 14 & 16** (e.g., `14-fbxxxx`, `16-u0xxxx` series)
+* **HP Victus 15** (e.g., `15-fa0xxx`, `15-fb0xxx` series)
+* **HP Victus 16** (e.g., `16-d0xxxx`, `16-e0xxxx`, `16-r0xxxx`, `16-s0xxxx` series)
+
+### ⚙️ Hardware Capabilities Supported
+* **Processors (CPUs):** Full performance scaling and telemetry mapping for **Intel Core** (10th Gen through Core Ultra) and **AMD Ryzen** (4000 through 8000/9000 Series).
+* **Graphics (GPUs):** Telemetry tracking and MUX switching for **NVIDIA GeForce RTX** (20, 30, 40 Series), **AMD Radeon** RX series, and **Intel Arc/Iris Xe**.
+* **Thermal Controller:** Full compatibility with WMI-driven platform profiles via the `hp-wmi` kernel module, enabling fan curves, boost management, and power limits override.
+
+---
+
 ## 🐧 OS Compatibility
 
 | Distribution | Status | Notes |
