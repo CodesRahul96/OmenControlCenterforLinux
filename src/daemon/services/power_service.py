@@ -18,6 +18,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from common.logging_config import setup_logging
 from common.config import ServiceConfig
+from common.app_launchers import get_running_launcher_ids
 from common.dbus_helpers import run_service
 from common.sysfs import (
     normalize_profile_name,
@@ -361,6 +362,8 @@ class PowerService:
                                 base = os.path.basename(token)
                                 if base:
                                     names.add(base)
+                    # Read environ to check for launcher App IDs
+                    names.update(get_running_launcher_ids(pid_dir))
                 except Exception:
                     continue
         except Exception as e:

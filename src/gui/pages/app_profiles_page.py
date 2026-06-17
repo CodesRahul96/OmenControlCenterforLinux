@@ -8,6 +8,10 @@ from gi.repository import Gtk, GLib, Gdk
 import sys
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "daemon"))
+sys.path.insert(0, "/usr/libexec/hp-manager")
+
+from common.app_launchers import parse_exec_command
 
 def T(k):
     from i18n import T as _T
@@ -202,9 +206,7 @@ class AppProfilesPage(Gtk.Box):
                             elif line.startswith("Exec="):
                                 exec_raw = line.split("=", 1)[1].strip()
                                 if exec_raw:
-                                    first_part = exec_raw.split()[0]
-                                    first_part = first_part.strip('"\'')
-                                    exec_cmd = os.path.basename(first_part)
+                                    exec_cmd = parse_exec_command(exec_raw)
                                     
                             if name and exec_cmd:
                                 key = (name, exec_cmd)
