@@ -507,15 +507,15 @@ class HPManagerWindow(Adw.ApplicationWindow if HAS_ADW else Gtk.ApplicationWindo
                 sm.set_color_scheme(Adw.ColorScheme.FORCE_LIGHT)
             else:
                 sm.set_color_scheme(Adw.ColorScheme.DEFAULT)
-
-        settings = Gtk.Settings.get_default()
-        if settings is not None:
-            if self.app_theme == "dark":
-                settings.set_property("gtk-application-prefer-dark-theme", True)
-            elif self.app_theme == "light":
-                settings.set_property("gtk-application-prefer-dark-theme", False)
-            else:
-                settings.set_property("gtk-application-prefer-dark-theme", False)
+        else:
+            settings = Gtk.Settings.get_default()
+            if settings is not None:
+                if self.app_theme == "dark":
+                    settings.set_property("gtk-application-prefer-dark-theme", True)
+                elif self.app_theme == "light":
+                    settings.set_property("gtk-application-prefer-dark-theme", False)
+                else:
+                    settings.set_property("gtk-application-prefer-dark-theme", False)
 
     def _get_system_accent(self):
         """Return the system/GTK accent colour as a hex string."""
@@ -737,7 +737,6 @@ class HPManagerWindow(Adw.ApplicationWindow if HAS_ADW else Gtk.ApplicationWindo
             border-right: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 0px;
             box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.03);
-            overflow: hidden;
             transition: background-color 260ms ease, border-color 260ms ease, box-shadow 260ms ease, opacity 260ms ease;
         }}
         .sidebar-header-area {{
@@ -772,7 +771,6 @@ class HPManagerWindow(Adw.ApplicationWindow if HAS_ADW else Gtk.ApplicationWindo
             font-size: 11px;
             font-weight: 700;
             color: {fg_dim};
-            text-align: center;
             margin-top: 6px;
             padding: 0 4px;
             transition: opacity 180ms ease;
@@ -1028,19 +1026,19 @@ class HPManagerWindow(Adw.ApplicationWindow if HAS_ADW else Gtk.ApplicationWindo
             transition: color 220ms ease;
         }}
         entry, entry > text, entry text, entry > text > block, entry > textview, entry > textview > text {{
-            background-color: {entry_bg} !important;
-            border: 1px solid {entry_border} !important;
+            background-color: {entry_bg};
+            border: 1px solid {entry_border};
             border-radius: 10px;
             padding: 8px 12px;
-            color: {entry_fg} !important;
+            color: {entry_fg};
             transition: background-color 220ms ease, color 220ms ease, border-color 220ms ease;
         }}
         entry:focus, entry > text:focus, entry text:focus {{
-            border-color: {accent} !important;
-            box-shadow: 0 0 0 2px alpha({accent}, 0.25) !important;
+            border-color: {accent};
+            box-shadow: 0 0 0 2px alpha({accent}, 0.25);
         }}
         entry > text > placeholder, entry placeholder {{
-            color: {fg_very_dim} !important;
+            color: {fg_very_dim};
         }}
         image {{
             color: {fg_dim};
