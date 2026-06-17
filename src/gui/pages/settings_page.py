@@ -429,7 +429,7 @@ class SettingsPage(Gtk.Box):
         appear_card.append(self._make_sep())
 
         # Language row
-        self.lang_dd = Gtk.DropDown(model=Gtk.StringList.new(["Türkçe", "English"]))
+        self.lang_dd = Gtk.DropDown(model=Gtk.StringList.new(["Türkçe", "English", "हिन्दी"]))
         self.lang_dd.connect("notify::selected", self._on_lang)
         appear_card.append(self._make_settings_row(
             "🌐", T("lang_label"), self.lang_dd, bg_class="icon-bg-lang"))
@@ -1080,7 +1080,8 @@ class SettingsPage(Gtk.Box):
             self.on_theme_change(theme)
 
     def _on_lang(self, dd, _):
-        lang = "tr" if dd.get_selected() == 0 else "en"
+        idx = dd.get_selected()
+        lang = "tr" if idx == 0 else "en" if idx == 1 else "hi"
         if self.on_lang_change:
             self.on_lang_change(lang)
 

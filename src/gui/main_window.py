@@ -2330,7 +2330,8 @@ class HPManagerWindow(Adw.ApplicationWindow if HAS_ADW else Gtk.ApplicationWindo
         self._rebuilding = True
         self.settings_page.set_theme_index(
             0 if self.app_theme == "dark" else 1 if self.app_theme == "light" else 2)
-        self.settings_page.set_lang_index(0 if get_lang() == "tr" else 1)
+        lang = get_lang()
+        self.settings_page.set_lang_index(0 if lang == "tr" else 1 if lang == "en" else 2)
         self.settings_page.set_temp_unit_index(0 if self.temp_unit == "C" else 1)
         self._rebuilding = False
 
@@ -3528,7 +3529,8 @@ class HPManagerWindow(Adw.ApplicationWindow if HAS_ADW else Gtk.ApplicationWindo
 
             self.settings_page.set_theme_index(
                 0 if self.app_theme == "dark" else 1 if self.app_theme == "light" else 2)
-            self.settings_page.set_lang_index(0 if get_lang() == "tr" else 1)
+            lang = get_lang()
+            self.settings_page.set_lang_index(0 if lang == "tr" else 1 if lang == "en" else 2)
             self.settings_page.set_temp_unit_index(0 if self.temp_unit == "C" else 1)
 
             self._navigate(current_page or "home")
