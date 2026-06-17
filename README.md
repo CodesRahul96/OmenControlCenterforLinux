@@ -182,7 +182,7 @@ OmenControlCenter detects and manages HP's proprietary WMI system interfaces, su
 ## 👨‍💻 Credits & Contributors
 
 ### 👑 Core Maintainer & Lead Developers
-* **[CodesRahul96](https://github.com/CodesRahul96)** - Core Maintainer & Lead Developer
+* **[CodesRahul96](https://github.com/CodesRahul96)** - Core Maintainer & Lead Developer (Modernized GTK4/Libadwaita UI, Hindi localization, application profiles integration, Zorin OS support, and stability/theme fixes)
 * **[yunusemreyl](https://github.com/yunusemreyl)** - Original Lead Developer & Maintainer
 * **[tuxov](https://github.com/tuxov)** - Kernel Module & Patch Lead (Maintainer of the exceptional `hp-wmi-fan-and-backlight-control` kernel driver)
 
